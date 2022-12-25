@@ -71,8 +71,16 @@ class AuthController extends Controller
             }
             else
             {
-                $token = $user->createToken($user->email.'_Token')->plainTextToken;
-
+                //NOTE: any other roles will be added here
+                if($user->role_as == 1) //1 = admin
+                {
+                    $token = $user->createToken($user->email.'_AdminToken', ['server:admin'])->plainTextToken; //server update to be chenged to roles _AdminToken can be any var
+                }
+                else
+                {
+                    $token = $user->createToken($user->email.'_Token', [''])->plainTextToken;
+                }
+               
                 return response()->json([
                     'status' => 200,
                     'username' => $user->name,
