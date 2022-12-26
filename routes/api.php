@@ -16,9 +16,8 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function() {
    });
 
    //Route::post('logout',[AuthController::class,'logout']);
-
 });
-
+//Route::post('logout',[AuthController::class,'logout']);
 Route::middleware(['auth:sanctum'])->group(function() {
 
    Route::post('logout',[AuthController::class,'logout']);

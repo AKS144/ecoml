@@ -12,14 +12,14 @@ class ApiAdminMiddleware
     {
         if(Auth::check())
         {
-            if(auth()->user()->tokenCan('server:admin'))
+            if(Auth::user()->tokenCan('server:admin'))
             {
                 return $next($request);
             }
             else
             {
                 return response()->json([
-                    'message' => 'Acces denied! You are not an admin'
+                    'message' => 'Access Denied! You are not an admin'
                 ],403);
             }
         }
@@ -29,7 +29,6 @@ class ApiAdminMiddleware
                 'status' => 401,
                 'message' => 'Please login First',
             ]);
-        }
-        //return $next($request);
+        }       
     }
 }
