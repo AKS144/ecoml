@@ -3,10 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CategoryController;
+
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 //isAPIAdmin
-
 Route::post('register',[AuthController::class, 'register']);
 Route::post('login',[AuthController::class,'login']);
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function() {
@@ -15,15 +20,14 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function() {
       return response()->json(['message' => 'You are in', 'status'=> 200],200);
    });
 
-   //Route::post('logout',[AuthController::class,'logout']);
+   Route::get('view-category',[CategoryController::class,'index']);
+   Route::post('store-category',[CategoryController::class,'store']);
+   Route::get('edit-category/{id}',[CategoryController::class,'edit']);
 });
-//Route::post('logout',[AuthController::class,'logout']);
+
 Route::middleware(['auth:sanctum'])->group(function() {
 
    Route::post('logout',[AuthController::class,'logout']);
 
 });
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
